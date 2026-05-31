@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>从感知机到大语言模型：AI 发展的数学叙事</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+  <!-- Theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+  <!-- Custom styles -->
+  <style>
+    :root {
+      --theme-hue: 210;
+      --base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --base-font-size: 17px;
+      --base-line-height: 1.8;
+      --base-color: #d8d8d8;
+      --heading-font-family: var(--base-font-family);
+      --heading-line-height: 1.4;
+      --sidebar-width: 280px;
+      --sidebar-toggle-offset-top: 15px;
+      --sidebar-toggle-offset-left: 15px;
+    }
+
+    /* Cover page */
+    .cover-main h1 {
+      font-size: 2.4rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    .cover-main h2 {
+      font-size: 1.2rem !important;
+      font-weight: 300 !important;
+      color: var(--base-color) !important;
+      margin-top: 0 !important;
+    }
+    .cover-main blockquote {
+      border-left: none !important;
+      font-style: normal !important;
+    }
+    .cover-main p {
+      font-size: 1rem !important;
+    }
+
+    /* Chapter titles */
+    .markdown-section h1 {
+      font-size: 1.9rem;
+      border-bottom: 2px solid var(--theme-color);
+      padding-bottom: 0.5rem;
+    }
+
+    /* Blockquotes as epigraphs */
+    .markdown-section > blockquote:first-child {
+      font-style: italic;
+      color: #999;
+      border-left: 3px solid var(--theme-color);
+      padding-left: 1rem;
+      font-size: 0.95em;
+    }
+
+    /* Horizontal rules */
+    .markdown-section hr {
+      border-top: 1px solid #444;
+      margin: 2rem 0;
+    }
+
+    /* Tables */
+    .markdown-section table {
+      display: table;
+      width: 100%;
+      font-size: 0.9em;
+    }
+    .markdown-section table th,
+    .markdown-section table td {
+      padding: 8px 12px;
+    }
+
+    /* Code blocks */
+    .markdown-section pre {
+      background-color: #1e1e1e;
+    }
+    .markdown-section code {
+      font-size: 0.9em;
+    }
+
+    /* Math formula spacing */
+    .markdown-section p > code {
+      background: rgba(136, 136, 204, 0.1);
+    }
+
+    /* Navigation arrow */
+    .markdown-section p:last-child {
+      margin-bottom: 3rem;
+    }
+
+    /* Sidebar active link */
+    .sidebar-nav > ul > li > p {
+      font-weight: 600;
+    }
+    .sidebar-nav li.active > a {
+      font-weight: 700;
+    }
+  </style>
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    window.$docsify = {
+      name: '从感知机到大语言模型',
+      nameLink: '#/',
+      coverpage: true,
+      loadSidebar: '_sidebar.md',
+      subMaxLevel: 2,
+      auto2top: true,
+      topMargin: 60,
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '搜索',
+        noData: '没有结果',
+        depth: 4
+      },
+      pagination: {
+        previousText: '上一章节',
+        nextText: '下一章节',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+      plugins: [
+        // KaTeX math rendering plugin
+        function (hook) {
+          hook.afterEach(function (html) {
+            return html;
+          });
+        }
+      ]
+    };
+  </script>
+  <!-- Docsify -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <!-- Search plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <!-- Pagination plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  <!-- Emoji plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/emoji.min.js"></script>
+  <!-- KaTeX rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+    // Render math after each page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const observer = new MutationObserver(function() {
+        const main = document.querySelector('.markdown-section');
+        if (main) {
+          renderMathInElement(main, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false },
+              { left: '\\(', right: '\\)', display: false },
+              { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false
+          });
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+  </script>
+</body>
+</html>
