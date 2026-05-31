@@ -22,7 +22,11 @@
       --sidebar-toggle-offset-left: 15px;
     }
 
-    /* Cover page */
+    /* Cover page - hide empty logo */
+    .cover-main > p:first-child,
+    .cover-main img {
+      display: none !important;
+    }
     .cover-main h1 {
       font-size: 2.4rem !important;
       margin-bottom: 0.5rem !important;
