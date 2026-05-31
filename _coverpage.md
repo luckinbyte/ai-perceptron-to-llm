@@ -1,4 +1,4 @@
-![logo]()
+<!-- docsify coverpage: no logo needed, favicon handles branding -->
 
 # 从感知机到大语言模型
 

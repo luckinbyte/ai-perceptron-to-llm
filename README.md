@@ -4,7 +4,7 @@
 
 ## 📖 在线阅读
 
-👉 **[点击阅读全书](https://YOUR-USERNAME.github.io/ai-perceptron-to-llm/)**
+👉 **[点击阅读全书](https://luckinbyte.github.io/ai-perceptron-to-llm/)**
 
 ## 📚 内容概览
 
