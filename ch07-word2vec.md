@@ -34,9 +34,9 @@ Mikolov 后来从 Google 离开，先后去了 Facebook AI Research（FAIR）和
 
 当时的主流方法是 **one-hot 编码**（one-hot encoding）。具体怎么做？假设你的词汇表有 10 万个词，按字母顺序编号。那么"猫"是第 3847 个词，它就表示为一个 10 万维的向量：第 3847 个位置是 1，其余 99999 个位置全是 0。
 
-$$\text{猫} = (0, 0, \ldots, 0, \underbrace{1}_{第3847位}, 0, \ldots, 0)$$
+$$\text{猫} = (0, 0, \ldots, 0, \underbrace{1}_{\text{第3847位}}, 0, \ldots, 0)$$
 
-$$\text{狗} = (0, 0, \ldots, 0, \underbrace{1}_{第5621位}, 0, \ldots, 0)$$
+$$\text{狗} = (0, 0, \ldots, 0, \underbrace{1}_{\text{第5621位}}, 0, \ldots, 0)$$
 
 这种表示有一个致命的问题。让我们算一下"猫"和"狗"之间的余弦相似度（一种衡量向量相似程度的方法）：
 

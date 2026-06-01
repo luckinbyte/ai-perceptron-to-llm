@@ -132,9 +132,32 @@
         crossChapterText: true,
       },
       plugins: [
-        // KaTeX math rendering plugin
+        // Protect math blocks from markdown parsing
         function (hook) {
+          var mathBlocks = [];
+          hook.beforeEach(function (content) {
+            // Extract and replace $$...$$ and $...$ blocks with placeholders
+            // so marked.js doesn't process _ * % etc. inside math
+            var idx = 0;
+            function replacer(match) {
+              var placeholder = '%%MATH_BLOCK_' + idx + '%%';
+              mathBlocks.push({ placeholder: placeholder, math: match });
+              idx++;
+              return placeholder;
+            }
+            // Replace $$...$$ first (display math, may be multiline)
+            content = content.replace(/\$\$([\s\S]*?)\$\$/g, replacer);
+            // Then $...$ (inline math, single line only)
+            content = content.replace(/\$([^\$\n]+?)\$/g, replacer);
+            return content;
+          });
           hook.afterEach(function (html) {
+            // Restore math blocks from placeholders
+            for (var i = 0; i < mathBlocks.length; i++) {
+              html = html.replace('<p>' + mathBlocks[i].placeholder + '</p>', mathBlocks[i].math);
+              html = html.replace(mathBlocks[i].placeholder, mathBlocks[i].math);
+            }
+            mathBlocks = [];
             return html;
           });
         }
