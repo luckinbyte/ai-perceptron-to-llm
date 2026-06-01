@@ -1,4 +1,4 @@
-# 第 10 章 · 先通读再答题——预训练语言模型（BERT 与 GPT）
+# 第 11 章 · 先通读再答题——预训练语言模型（BERT 与 GPT）
 
 > "We show that pre-training on a large corpus of unlabeled text is crucial for achieving strong performance." — Devlin et al., 2018
 
@@ -8,19 +8,19 @@
 
 2018 年初，两个独立的研究团队几乎同时做出了一个相同的赌注：让 Transformer 先"大量阅读"无标注文本，再去解决具体的 NLP 任务。一个团队在 Google，另一个在 OpenAI。两条技术路线的核心思想惊人地一致，但实现方式截然不同——一个选择了"双向"，另一个选择了"单向"。
 
-**Jacob Devlin** 是 Google AI Language 团队的研究科学家。在 BERT 之前，Devlin 的主要工作是 Google 的神经机器翻译系统——没错，正是第 9 章 Transformer 论文发表后、被 Google Translate 采用的那套系统。Devlin 是一个低调而务实的人，在 AI 研究的"明星文化"中显得有些格格不入。他不热衷于社交媒体上的论战，也不追逐学术界的潮流。但他有一个令人敬畏的特点：对细节的偏执。Devlin 的同事曾半开玩笑地说，他能花一周时间优化一个数据预处理的步骤，然后这个优化让整个系统提升了两个百分点。
+**Jacob Devlin** 是 Google AI Language 团队的研究科学家。在 BERT 之前，Devlin 的主要工作是 Google 的神经机器翻译系统——没错，正是第 10 章 Transformer 论文发表后、被 Google Translate 采用的那套系统。Devlin 是一个低调而务实的人，在 AI 研究的"明星文化"中显得有些格格不入。他不热衷于社交媒体上的论战，也不追逐学术界的潮流。但他有一个令人敬畏的特点：对细节的偏执。Devlin 的同事曾半开玩笑地说，他能花一周时间优化一个数据预处理的步骤，然后这个优化让整个系统提升了两个百分点。
 
 在开发 BERT 之前，Devlin 注意到了一个被很多人忽视的事实：2018 年初，两个独立的预训练语言模型——ELMo（来自 AI2 的 Matthew Peters 等人）和 ULMFiT（来自 fast.ai 的 Jeremy Howard 和 Sebastian Ruder 等人）——都已经证明了"先预训练、再微调"的思路在 NLP 中是有效的。但它们用的还是 LSTM，不是 Transformer。Devlin 的洞察很直接：如果把预训练和 Transformer 结合起来，效果会不会有一个量级的飞跃？BERT 就是这个问题的答案。
 
 **Alec Radford** 走的是一条完全不同的路。他是 OpenAI 的研究科学家，也是一个"生成派"的坚定信徒。2017 年的 OpenAI 还是一个纯粹的非营利研究机构（Elon Musk 还在董事会里），规模不大，但有一种"改变世界"的理想主义氛围。Radford 在 OpenAI 的早期工作集中在生成模型上——他相信，一个能"生成"语言的模型，必然已经理解了语言的深层结构。
 
-Radford 的风格和 Devlin 截然不同。如果说 Devlin 是一个精雕细琢的工匠，Radford 更像一个大胆的探险家。GPT-1 的论文标题就很有 OpenAI 的风格——"Improving Language Understanding by Generative Pre-Training"——朴素但野心勃勃。Radford 和他的合作者们（包括 Ilya Sutskever，我们第 8 章 Seq2Seq 的作者之一）选择了一条看似"更笨"的路：不像 BERT 那样让模型做"完形填空"（利用左右两侧的上下文），而是让它做"预测下一个词"——只看左边，不看右边。
+Radford 的风格和 Devlin 截然不同。如果说 Devlin 是一个精雕细琢的工匠，Radford 更像一个大胆的探险家。GPT-1 的论文标题就很有 OpenAI 的风格——"Improving Language Understanding by Generative Pre-Training"——朴素但野心勃勃。Radford 和他的合作者们（包括 Ilya Sutskever，我们第 9 章 Seq2Seq 的作者之一）选择了一条看似"更笨"的路：不像 BERT 那样让模型做"完形填空"（利用左右两侧的上下文），而是让它做"预测下一个词"——只看左边，不看右边。
 
 这两个人的选择——双向 vs 单向、完形填空 vs 预测下一个词——在 2018 年引发了一场影响深远的辩论。但无论路线如何，他们共同证明了一件事：**先通读再答题，远比拿到题目才开始学习要强得多。**
 
 ## 上一章的遗产：一个没解决的问题
 
-第 9 章的 Transformer 架构是一个巨大的飞跃——序列中所有位置可以并行计算，训练速度比 RNN 快了几个数量级，机器翻译的质量也刷新了记录。但 Transformer 有一个让所有 NLP 研究者头疼的问题：**它是为特定任务定制的。**
+第 10 章的 Transformer 架构是一个巨大的飞跃——序列中所有位置可以并行计算，训练速度比 RNN 快了几个数量级，机器翻译的质量也刷新了记录。但 Transformer 有一个让所有 NLP 研究者头疼的问题：**它是为特定任务定制的。**
 
 让我们用具体的例子来感受这个痛点。假设你想做三件 NLP 任务：
 
@@ -68,7 +68,7 @@ $$\mathcal{L}_{\text{MLM}} = -\sum_{i \in \text{masked}} \log P(x_i \mid x_1, \l
 
 $$\mathcal{L}_{\text{LM}} = -\sum_{t=1}^{n} \log P(x_t \mid x_1, x_2, \ldots, x_{t-1})$$
 
-其中 $x_t$ 是第 $t$ 个 token，$x_1, \ldots, x_{t-1}$ 是它**之前**的所有 token。直觉：给定前面所有的词，预测下一个词。这和第 7 章 Word2Vec 的 Skip-gram 有精神上的血缘关系，但这里的上下文是"所有前面的词"而不只是"相邻的几个词"。GPT 每一步都在做概率建模，因此天然适合文本生成。
+其中 $x_t$ 是第 $t$ 个 token，$x_1, \ldots, x_{t-1}$ 是它**之前**的所有 token。直觉：给定前面所有的词，预测下一个词。这和第 8 章 Word2Vec 的 Skip-gram 有精神上的血缘关系，但这里的上下文是"所有前面的词"而不只是"相邻的几个词"。GPT 每一步都在做概率建模，因此天然适合文本生成。
 
 **3. 微调（fine-tuning）的分类损失：**
 

@@ -1,4 +1,4 @@
-# 第 13 章 · 推理、融合与涌现——当前前沿
+# 第 14 章 · 推理、融合与涌现——当前前沿
 
 > "We've discovered that larger models don't just do a little better at things they already know—they suddenly gain entirely new abilities that smaller models completely lack." — Jason Wei et al., 2022
 
@@ -163,4 +163,4 @@ $$= \begin{pmatrix} 0.330 \\ 0.275 \end{pmatrix} + \begin{pmatrix} 0.428 \\ 0.22
 
 有一个细节值得思考：2024 年的诺贝尔物理学奖颁给了 John Hopfield 和 Geoffrey Hinton——我们在第 3 章和第 6 章见过这位 Hinton。诺贝尔物理学奖颁给了一个做神经网络的人。这在十年前是不可想象的。Hinton 本人在获奖后的采访中说："我从未想过这一天会来。我只是一个试图理解大脑如何工作的人。"从感知机到诺贝尔奖——67 年。
 
-→ 当 AI 能推理、能看、能听、能自主行动，我们面对的不再是"如何让它更聪明"的问题——而是"如何确保一个比我们更聪明的系统仍然按照我们的意愿行事"。从第 12 章的对齐问题到今天的推理与多模态，技术的进步一直在加速，但那个最古老的问题——"我们到底想要什么样的 AI？"——始终没有答案。
+→ 当 AI 能推理、能看、能听、能自主行动，我们面对的不再是"如何让它更聪明"的问题——而是"如何确保一个比我们更聪明的系统仍然按照我们的意愿行事"。从第 13 章的对齐问题到今天的推理与多模态，技术的进步一直在加速，但那个最古老的问题——"我们到底想要什么样的 AI？"——始终没有答案。

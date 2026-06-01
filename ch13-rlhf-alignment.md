@@ -1,4 +1,4 @@
-# 第 12 章 · 让 AI 听懂人话——RLHF 与对齐
+# 第 13 章 · 让 AI 听懂人话——RLHF 与对齐
 
 > "We've trained a model called ChatGPT which interacts in a conversational way. The dialogue format makes it possible for ChatGPT to answer followup questions, admit its mistakes, challenge incorrect premises, and reject inappropriate requests." — OpenAI, 2022 年 11 月 30 日
 
